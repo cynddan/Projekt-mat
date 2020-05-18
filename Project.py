@@ -12,3 +12,5 @@ niepewnosc_sqr = 0
 liczba_zmiennych = int(input('liczba zmiennych: '))
 wzor = sp.sympify(input('wzor: '))
 
+x = y
+
