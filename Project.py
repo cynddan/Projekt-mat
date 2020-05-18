@@ -20,12 +20,10 @@ for i in range(liczba_zmiennych):
 
 for symbol_iter in range(liczba_zmiennych):
     pochodna.append(wzor.diff(symbole[symbol_iter]))
-    print(pochodna[symbol_iter])
     wartosc_symboli.append((symbole[symbol_iter],wartosci_zmiennych[symbol_iter]))
 
 for pochodna_czastkowa in range(len(pochodna)):
-    print(pochodna[pochodna_czastkowa].subs(wartosc_symboli))
-    niepewnosc_sqr =niepewnosc_sqr + pochodna[pochodna_czastkowa].subs(wartosc_symboli) * niepewnosci[pochodna_czastkowa]
-    print(niepewnosc_sqr)
+    niepewnosc_sqr = niepewnosc_sqr + pochodna[pochodna_czastkowa].subs(wartosc_symboli) * niepewnosci[pochodna_czastkowa]
 
-print(sp.sqrt(niepewnosc_sqr))
+
+sp.pprint(sp.sqrt(niepewnosc_sqr))
