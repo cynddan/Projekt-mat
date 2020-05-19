@@ -24,28 +24,48 @@ wzor_pochodna.setReadOnly(True)
 wynik = QLineEdit(widget)
 wynik.setReadOnly(True)
 
+zmienna1.setText('x')
+zmienna2.setText('y')
+zmienna3.setText('z')
+wartosc1.setText('1')
+wartosc2.setText('1')
+wartosc3.setText('1')
+niepewnosc1.setText('1')
+niepewnosc2.setText('1')
+niepewnosc3.setText('1')
 
 def obliczenie():
-    symbole = []
-    niepewnosc_sqr = 0
-    pochodna = []
-    wartosc_symboli = []
-    niepewnosci = []
-    wartosci_zmiennych = []
+    try:
+        symbole = []
+        niepewnosc_sqr = 0
+        pochodna = []
+        wartosc_symboli = []
+        niepewnosci = []
+        wartosci_zmiennych = []
+        pochodne = ''
 
-    wzor = sp.sympify(wzor_pole.text())
-    symbole.extend((zmienna1.text(), zmienna2.text(), zmienna3.text()))
-    wartosci_zmiennych.extend((wartosc1.text(), wartosc2.text(), wartosc3.text()))
-    niepewnosci.extend((sp.sympify(niepewnosc1.text()), sp.sympify(niepewnosc2.text()), sp.sympify(niepewnosc3.text())))
+        wzor = sp.sympify(wzor_pole.text())
+        symbole.extend((zmienna1.text(), zmienna2.text(), zmienna3.text()))
+        wartosci_zmiennych.extend((wartosc1.text(), wartosc2.text(), wartosc3.text()))
+        niepewnosci.extend((sp.sympify(niepewnosc1.text()), sp.sympify(niepewnosc2.text()), sp.sympify(niepewnosc3.text())))
+    except:
+        wynik.setText('Podaj wzór')
 
-    for symbol_iter in range(len(symbole)):
-        pochodna.append(wzor.diff(symbole[symbol_iter]))
-        wartosc_symboli.append((symbole[symbol_iter],wartosci_zmiennych[symbol_iter]))
+    else:
+        for symbol_iter in range(len(symbole)):
+            pochodna.append(wzor.diff(symbole[symbol_iter]))
+            wartosc_symboli.append((symbole[symbol_iter],wartosci_zmiennych[symbol_iter]))
 
-    for pochodna_czastkowa in range(len(symbole)):
-        niepewnosc_sqr = niepewnosc_sqr + (pochodna[pochodna_czastkowa].subs(wartosc_symboli) * niepewnosci[pochodna_czastkowa])**2
-    wzor_pochodna.setText(str(pochodna))
-    wynik.setText(str(sp.sqrt(niepewnosc_sqr)))
+        for pochodna_czastkowa in range(len(symbole)):
+            niepewnosc_sqr = niepewnosc_sqr + (pochodna[pochodna_czastkowa].subs(wartosc_symboli) * niepewnosci[pochodna_czastkowa])**2
+            if pochodna[pochodna_czastkowa] !=0:
+                if pochodne != "":
+                    pochodne += ' + ' + str(pochodna[pochodna_czastkowa])
+                else:
+                    pochodne = str(pochodna[pochodna_czastkowa])
+        
+        wzor_pochodna.setText(pochodne)
+        wynik.setText(str(sp.sqrt(niepewnosc_sqr)))
 
 
 
@@ -70,7 +90,7 @@ layout.addWidget(QLabel('Zmienne'),0,0)
 layout.addWidget(QLabel('Wartość zmiennej'),2,0)
 layout.addWidget(QLabel('Niepewność zmiennej'),4,0)
 layout.addWidget(QLabel('Wzór'),6,0)
-layout.addWidget(QLabel('Pochodna'),8,0)
+layout.addWidget(QLabel('Pochodne cząstkowe'),8,0)
 layout.addWidget(QLabel('Wartość'),10,0)
 layout.addWidget(przycisk_oblicz, 11,4)
 
