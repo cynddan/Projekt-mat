@@ -59,7 +59,7 @@ def obliczenie():
                 wartosc_symboli.append((symbole[symbol_iter],wartosci_zmiennych[symbol_iter]))
 
         except:
-            wzor_pochodna.setText('Uzupełnij pola')
+            wzor_pochodna.setText('Uzupełnij pola poprawnie')
 
         else:
             for pochodna_czastkowa in range(len(symbole)):
@@ -92,13 +92,13 @@ layout.addWidget(niepewnosc3,5,4)
 layout.addWidget(wzor_pole,7,0,1,5)
 layout.addWidget(wzor_pochodna,9,0,1,5)
 layout.addWidget(wynik,11,0,1,4)
-layout.addWidget(QLabel('Zmienne'),0,0)
-layout.addWidget(QLabel('Wartość zmiennej'),2,0)
-layout.addWidget(QLabel('Niepewność zmiennej'),4,0)
-layout.addWidget(QLabel('Wzór'),6,0)
-layout.addWidget(QLabel('Pochodne cząstkowe'),8,0)
-layout.addWidget(QLabel('Wartość'),10,0)
-layout.addWidget(przycisk_oblicz, 11,4)
+layout.addWidget(QLabel('Zmienne(symbole)'),0,0,1,4)
+layout.addWidget(QLabel('Wartość zmiennej(liczba)'),2,0,1,4)
+layout.addWidget(QLabel('Niepewność zmiennej(symbol lub liczba)'),4,0,1,4)
+layout.addWidget(QLabel('Wzór'),6,0,1,4)
+layout.addWidget(QLabel('Pochodne cząstkowe'),8,0,1,4)
+layout.addWidget(QLabel('Wartość'),10,0,1,4)
+layout.addWidget(przycisk_oblicz, 11,4,1,4)
 
 
 widget.setLayout(layout)
