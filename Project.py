@@ -48,24 +48,30 @@ def obliczenie():
         symbole.extend((zmienna1.text(), zmienna2.text(), zmienna3.text()))
         wartosci_zmiennych.extend((wartosc1.text(), wartosc2.text(), wartosc3.text()))
         niepewnosci.extend((sp.sympify(niepewnosc1.text()), sp.sympify(niepewnosc2.text()), sp.sympify(niepewnosc3.text())))
+
     except:
         wynik.setText('Podaj wzór')
 
     else:
-        for symbol_iter in range(len(symbole)):
-            pochodna.append(wzor.diff(symbole[symbol_iter]))
-            wartosc_symboli.append((symbole[symbol_iter],wartosci_zmiennych[symbol_iter]))
+        try:
+            for symbol_iter in range(len(symbole)):
+                pochodna.append(wzor.diff(symbole[symbol_iter]))
+                wartosc_symboli.append((symbole[symbol_iter],wartosci_zmiennych[symbol_iter]))
 
-        for pochodna_czastkowa in range(len(symbole)):
-            niepewnosc_sqr = niepewnosc_sqr + (pochodna[pochodna_czastkowa].subs(wartosc_symboli) * niepewnosci[pochodna_czastkowa])**2
-            if pochodna[pochodna_czastkowa] !=0:
-                if pochodne != "":
-                    pochodne += ' + ' + str(pochodna[pochodna_czastkowa])
-                else:
-                    pochodne = str(pochodna[pochodna_czastkowa])
-        
-        wzor_pochodna.setText(pochodne)
-        wynik.setText(str(sp.sqrt(niepewnosc_sqr)))
+        except:
+            wzor_pochodna.setText('Uzupełnij pola')
+
+        else:
+            for pochodna_czastkowa in range(len(symbole)):
+                niepewnosc_sqr = niepewnosc_sqr + (pochodna[pochodna_czastkowa].subs(wartosc_symboli) * niepewnosci[pochodna_czastkowa])**2
+                if pochodna[pochodna_czastkowa] !=0:
+                    if pochodne != "":
+                        pochodne += ' + ' + str(pochodna[pochodna_czastkowa])
+                    else:
+                        pochodne = str(pochodna[pochodna_czastkowa])
+            
+            wzor_pochodna.setText(pochodne)
+            wynik.setText(str(sp.sqrt(niepewnosc_sqr)))
 
 
 
